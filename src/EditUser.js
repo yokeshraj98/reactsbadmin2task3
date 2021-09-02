@@ -1,22 +1,35 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
-import UserContext, { UserProvider } from "./UserContext";
+import UserContext from "./UserContext";
 import { useHistory } from "react-router-dom";
 
-function CreateUser(props) {
+function EditUser(props) {
   const [userName, setuserName] = useState("");
   const [position, setPosition] = useState("");
   const [office, setOffice] = useState("");
   const [age, setAge] = useState("");
   const [startDate, setStartdate] = useState("");
   const [salary, setSalary] = useState("");
-
   const userContext = useContext(UserContext);
   const history = useHistory();
+
+  useEffect(() => {
+    let userData = userContext.userList[props.match.params.id - 1];
+    // console.log(userData);
+    setuserName(userData.userName);
+    setPosition(userData.position);
+    setOffice(userData.office);
+    setAge(userData.age);
+    setStartdate(userData.startDate);
+    setSalary(userData.salary);
+  }, []);
+
   let handleSubmit = (e) => {
     e.preventDefault();
     let userData = { userName, position, office, age, startDate, salary };
-    userContext.setUserList([...userContext.userList, userData]);
+
+    userContext.userList[props.match.params.id - 1] = userData;
+    userContext.setUserList([...userContext.userList]);
     history.push("/user");
   };
 
@@ -85,7 +98,7 @@ function CreateUser(props) {
             <div className="col-lg-12">
               <input
                 type="submit"
-                value="Submit"
+                value="Update"
                 className="btn btn-primary mt-3"
               />
             </div>
@@ -96,4 +109,4 @@ function CreateUser(props) {
   );
 }
 
-export default CreateUser;
+export default EditUser;

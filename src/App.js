@@ -7,6 +7,8 @@ import Users from "./Users";
 import Product from "./Product";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateUser from "./CreateUser";
+import EditUser from "./EditUser";
+import { UserProvider } from "./UserContext";
 function App() {
   return (
     <Router>
@@ -18,13 +20,21 @@ function App() {
             <div class="container-fluid">
               <Switch>
                 <Route path="/" component={Dashboard} exact="true" />
-                <Route path="/user" component={Users} exact="true" />
                 <Route path="/product" component={Product} exact="true" />
-                <Route
-                  path="/create-user"
-                  component={CreateUser}
-                  exact={true}
-                />
+                <UserProvider>
+                  <Route path="/user" component={Users} exact="true" />
+
+                  <Route
+                    path="/user/edit/:id"
+                    component={EditUser}
+                    exact="true"
+                  />
+                  <Route
+                    path="/create-user"
+                    component={CreateUser}
+                    exact={true}
+                  />
+                </UserProvider>
               </Switch>
             </div>
           </div>
