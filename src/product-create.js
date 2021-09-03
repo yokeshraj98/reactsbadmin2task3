@@ -4,21 +4,23 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 function ProductCreate(props) {
-  const history = useHistory()
+  const history = useHistory();
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState("");
-  const [isLoading,setLoading]=useState(false)
+  const [isLoading, setLoading] = useState(false);
 
-  let handleSubmit = async(e) => {
-    e.preventDefault()
+  let handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      
-  setLoading(true)
-    await axios.post("https://611939e08ed292001799eef7.mockapi.io/ProductCrud",{productName,price});
-    setLoading(false)
-    history.push("/product")
+      setLoading(true);
+      await axios.post(
+        "https://611939e08ed292001799eef7.mockapi.io/ProductCrud",
+        { productName, price }
+      );
+      setLoading(false);
+      history.push("/product");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   return (
@@ -52,7 +54,7 @@ function ProductCreate(props) {
                 type="submit"
                 value="Submit"
                 className="btn btn-primary mt-3"
-                disabled={setLoading}
+                disabled={isLoading}
               />
             </div>
           </div>
