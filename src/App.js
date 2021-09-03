@@ -9,6 +9,8 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import CreateUser from "./CreateUser";
 import EditUser from "./EditUser";
 import { UserProvider } from "./UserContext";
+import ProductCreate from "./product-create";
+import ProductEdit from "./ProductEdit"
 function App() {
   return (
     <Router>
@@ -21,6 +23,17 @@ function App() {
               <Switch>
                 <Route path="/" component={Dashboard} exact="true" />
                 <Route path="/product" component={Product} exact="true" />
+                <Route
+                  path="/product-create"
+                  component={ProductCreate}
+                  exact="true"
+                />
+                   <Route
+                  path="/product/edit/:id"
+                  component={ProductEdit}
+                  exact="true"
+                />
+               
                 <UserProvider>
                   <Route path="/user" component={Users} exact="true" />
 
@@ -35,6 +48,7 @@ function App() {
                     exact={true}
                   />
                 </UserProvider>
+                
               </Switch>
             </div>
           </div>
